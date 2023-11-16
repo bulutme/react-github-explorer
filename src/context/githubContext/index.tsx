@@ -31,6 +31,7 @@ const useContext = () => {
   };
 
   const getEncodedCursor = (minus: number) => {
+    //Git api base64 encode after/before variables. Here we need to decode it.
     const rate = (tablePageInfo?.page - minus) * tablePageInfo?.pageSize;
     const rateCheck =
       rate > maximumRepositoryLength ? maximumRepositoryLength : rate;
