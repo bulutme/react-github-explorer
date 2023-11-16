@@ -4,28 +4,28 @@ import { RepoDetailsProps } from "./types";
 
 const RepoDetails: React.FC<RepoDetailsProps> = ({
   id,
-  description = "-",
-  owner = "-",
-  stars = 0,
-  forks = 0,
-  watchers = 0,
-  language = "-",
+  description,
+  owner,
+  stars,
+  forks,
+  watchers,
+  language,
 }: RepoDetailsProps) => {
-  const renderListItem = (label: string, value: string | number) => (
+  const renderListItem = (label: string, value?: string | number) => (
     <List.Item key={label + id}>
       <strong>{label}: </strong>
-      {String(value)}
+      {String(value ?? "-")}
     </List.Item>
   );
 
   return (
     <List itemLayout="horizontal">
-      {renderListItem("Description", description || "-")}
-      {renderListItem("Owner", owner || "-")}
-      {renderListItem("Stars", stars || 0)}
-      {renderListItem("Forks", forks || 0)}
-      {renderListItem("Watchers", watchers || 0)}
-      {renderListItem("Language", language || "-")}
+      {renderListItem("Description", description)}
+      {renderListItem("Owner", owner)}
+      {renderListItem("Stars", stars)}
+      {renderListItem("Forks", forks)}
+      {renderListItem("Watchers", watchers)}
+      {renderListItem("Language", language)}
     </List>
   );
 };

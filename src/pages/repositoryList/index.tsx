@@ -59,7 +59,9 @@ const RepositoryList: React.FC = () => {
             Modal.confirm({
               icon: null,
               title: `"${repo?.name}"`,
-              onCancel() {},
+              cancelButtonProps: {
+                style: { display: "none" },
+              },
               content: (
                 <RepoDetails
                   id={repo?.id}

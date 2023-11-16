@@ -1,6 +1,16 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import SearchForm from "./SearchForm";
 
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
+    };
+  };
+
 describe("SearchForm component", () => {
   it("should render the component", () => {
     render(<SearchForm />);

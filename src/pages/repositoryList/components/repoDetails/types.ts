@@ -1,9 +1,9 @@
 export interface RepoDetailsProps {
   id: string;
-  description?: string | null;
-  owner?: string | null;
-  stars?: number | null;
-  forks?: number | null;
-  watchers?: number | null;
-  language?: string | null;
+  description?: string;
+  owner?: string;
+  stars?: number;
+  forks?: number;
+  watchers?: number;
+  language?: string;
 }

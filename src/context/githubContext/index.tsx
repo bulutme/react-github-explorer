@@ -16,6 +16,12 @@ const useContext = () => {
     page: 1,
   });
 
+  const maximumRepositoryLength = 1000;
+  /* The total number of repositories that matched the search query. 
+   Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
+   This is why repositoryCount can set max 1000
+   */
+
   const handleQueryChange = (value: string) => {
     setQuery(value);
     setTablePageInfo({
@@ -25,17 +31,21 @@ const useContext = () => {
   };
 
   const getEncodedCursor = (minus: number) => {
-    const cursor =
-      tablePageInfo &&
-      btoa(`cursor:${(tablePageInfo?.page - minus) * tablePageInfo?.pageSize}`);
-    return cursor;
+    const rate = (tablePageInfo?.page - minus) * tablePageInfo?.pageSize;
+    const rateCheck =
+      rate > maximumRepositoryLength ? maximumRepositoryLength : rate;
+    const cursor = tablePageInfo && btoa(`cursor:${rateCheck}`);
+    return {
+      rate: rateCheck,
+      cursor: cursor,
+    };
   };
 
   const variables = {
     query,
-    pageSize: tablePageInfo?.pageSize,
-    after: getEncodedCursor(1),
-    before: getEncodedCursor(0),
+    pageSize: getEncodedCursor(0).rate - getEncodedCursor(1).rate,
+    after: getEncodedCursor(1).cursor,
+    before: getEncodedCursor(0).cursor,
   };
 
   const [getAllRepositories, { data, loading, error }] = useLazyQuery<
@@ -51,7 +61,9 @@ const useContext = () => {
 
   const getLimitedRepositoryCount = () => {
     const totalCount = data?.search?.repositoryCount!;
-    return totalCount > 1000 ? 1000 : totalCount;
+    return totalCount > maximumRepositoryLength
+      ? maximumRepositoryLength
+      : totalCount;
   };
 
   if (data && data.search && data.search.nodes.length === 0) {
@@ -70,10 +82,6 @@ const useContext = () => {
     setTablePageInfo,
     setQuery: handleQueryChange,
     getAllRepositories,
-    /* The total number of repositories that matched the search query. 
-    Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
-    This is why repositoryCount can set max 1000
-    */
     repositoryTotalCount: getLimitedRepositoryCount(),
   };
 
