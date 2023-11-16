@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# React Github Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Firstly you need to add an ".env" file including github access token and github graphql url in it. Please contact the repository owner.
 
 ## Available Scripts
 
