@@ -72,7 +72,9 @@ const useContext = () => {
   }
 
   if (error) {
-    message.error("A problem occurred during getting repositories");
+    message.error(
+      `A problem occurred during getting repositories ${error.message}`
+    );
   }
 
   const contextValues = {
