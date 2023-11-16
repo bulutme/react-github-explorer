@@ -1,13 +1,14 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import { config } from "../../config/config";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: config.githubGraphqlUrl,
+  uri: process.env.REACT_APP_GITHUB_GRAPHQL_URL,
+  // Because of access token is private, please contact the repo owner.
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = config.githubAccessToken;
+  const token = process.env.REACT_APP_GITHUB_ACCESS_TOKEN;
+  // Because of access token is private, please contact the repo owner.
   return {
     headers: {
       ...headers,
