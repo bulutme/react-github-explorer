@@ -11,11 +11,11 @@ const SearchForm: React.FC = () => {
   };
 
   return (
-    <Form onFinish={onFinish} style={{ display: "flex", gap: "8px" }}>
+    <Form onFinish={onFinish} className="search-form">
       <Form.Item
         name="search"
         rules={[{ required: true, message: "Please input your search key!" }]}
-        style={{ flex: 1 }}
+        className="search-form-item"
       >
         <Input
           type="text"
