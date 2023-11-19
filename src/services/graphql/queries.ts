@@ -17,7 +17,6 @@ export const GET_REPOSITORIES_WITH_PAGINATION = gql`
       repositoryCount
       pageInfo {
         startCursor
-        hasNextPage
         endCursor
       }
       nodes {
